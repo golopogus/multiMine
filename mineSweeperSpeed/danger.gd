@@ -38,7 +38,11 @@ func unhide():
 
 func _on_danger_mouse_entered():
 	mouseIn = true
+	$hidden/empty.hide()
+	$hidden/emptyHover.show()
 
 
 func _on_danger_mouse_exited():
 	mouseIn = false
+	$hidden/empty.show()
+	$hidden/emptyHover.hide()

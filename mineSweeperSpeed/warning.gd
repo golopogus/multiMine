@@ -153,7 +153,11 @@ func showText():
 
 func _on_warning_mouse_entered():
 	mouseIn = true
+	$hidden/empty.hide()
+	$hidden/emptyHover.show()
 
 
 func _on_warning_mouse_exited():
 	mouseIn = false
+	$hidden/empty.show()
+	$hidden/emptyHover.hide()
