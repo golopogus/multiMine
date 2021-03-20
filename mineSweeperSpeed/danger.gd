@@ -30,7 +30,7 @@ func unhide():
 #		elif dir == 'left':
 #			$hitOnce/hitLeft.show()
 	if $hidden.visible == true:
-		get_parent().get_parent().clearUnknown(position)
+		#get_parent().get_parent().clearUnknown(position)
 		$hidden.hide()
 		$hidden.visible = false
 		
