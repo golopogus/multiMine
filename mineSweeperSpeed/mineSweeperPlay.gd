@@ -98,21 +98,20 @@ func convertRowAndCol(numx,numy):
 	newPos.y = numy*cellSize + cellSize/2
 	return newPos
 
-func _on_nextLevelTimer_timeout():
-	$nextLevelTimer.stop()
-	print('l')
-	get_tree().change_scene("res://level.tscn")
+#func _on_nextLevelTimer_timeout():
+#	$nextLevelTimer.stop()
+#	print('l')
+#	get_tree().change_scene("res://level.tscn")
 
 func reconvert(x,y):
-	var newx = (x-8)/16
-	var newy = (y-8)/16
+	#var newx = (x-8)/16 
+	var newx = (x - 24)/cellSize
+	var newy = (y - 103)/16 
 	return Vector2(newx,newy)
 	
 func addBoard(area):
-	print(area)
 	var start = reconvert(area.x,area.y)
 	var startingArea = [start, Vector2(start.x + 1,start.y),Vector2(start.x + 1,start.y+1),Vector2(start.x,start.y+1),Vector2(start.x - 1,start.y+1),Vector2(start.x - 1,start.y),Vector2(start.x - 1,start.y - 1),Vector2(start.x,start.y - 1),Vector2(start.x + 1,start.y - 1)]
-	print(area)
 	$startingTiles.queue_free()
 	var startingCol = 0
 	var startingRow = 0
@@ -120,8 +119,8 @@ func addBoard(area):
 	var convertStartingArea = []
 	for i in startingArea:
 		convertStartingArea.append(convertRowAndCol(i.x,i.y))
-		print(convertStartingArea)
-
+		#print(convertStartingArea)
+	
 	
 	var startingPos = Vector2(cellSize/2,cellSize/2)
 	var row = 0
@@ -132,8 +131,8 @@ func addBoard(area):
 		randomize()
 		var x = randi() % width
 		var y = randi() % length
-		var realX = (x*32 + 16) + 16
-		var realY = (y*32 + 16) + 95
+		var realX = (x*16 + 8) 
+		var realY = (y*16 + 8) 
 
 		while Vector2(x,y) in startingArea or Vector2(x,y) in dangerPos:
 			x = randi() % width
@@ -152,8 +151,11 @@ func addBoard(area):
 		warningPos.append(Vector2(i.x,i.y+1))
 		warningPos.append(Vector2(i.x,i.y-1))
 
-			
-	
+	print(startingArea)
+	print(convertStartingArea)
+	print(warningPos)
+	if start in warningPos:
+		print('ho no')
 	#$tiles.position = Vector2(16,95)
 
 	for i in range(size):
@@ -187,7 +189,6 @@ func clearUnknown(pos):
 
 	for i in $tiles.get_children():
 		if i.position == pos:
-			print(i.name)
 			if "safe" in i.name:
 				if i.get_node("hidden").visible == true:
 					i.get_node("hidden").hide()
