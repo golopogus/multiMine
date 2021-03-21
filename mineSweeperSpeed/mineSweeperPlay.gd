@@ -7,7 +7,7 @@ var DANGER = preload("res://danger.tscn")
 var SAFE = preload("res://safe.tscn")
 var WARNING = preload("res://warning.tscn")
 var dangerAreas = 10
-var cellSize = 32
+var cellSize = 16
 var dangerPos = []
 var warningPos = []
 var length = levelSize[1]
@@ -72,25 +72,25 @@ func _ready():
 func addSafe1(pos):
 	var safe = SAFE.instance()
 	$startingTiles.add_child(safe)
-	safe.position = pos	
+	safe.position = pos	+ Vector2(16,95)
 
 func addSafe(pos,posCheck):
 	
 	var safe = SAFE.instance()
 	$tiles.add_child(safe)
-	safe.position = pos	
+	safe.position = pos	+ Vector2(16,95)
 	
 func addWarning(pos,posCheck):
 	
 	var warning = WARNING.instance()
 	$tiles.add_child(warning)
-	warning.position = pos
+	warning.position = pos + Vector2(16,95)
 		
 func addDanger(pos,posCheck):
 	
 	var danger = DANGER.instance()
 	$tiles.add_child(danger)
-	danger.position = pos
+	danger.position = pos + Vector2(16,95)
 
 	
 func convertRowAndCol(numx,numy):
@@ -104,11 +104,12 @@ func _on_nextLevelTimer_timeout():
 	get_tree().change_scene("res://level.tscn")
 
 func reconvert(x,y):
-	var newx = (x-16)/32
-	var newy = (y-16)/32
+	var newx = (x-8)/16
+	var newy = (y-8)/16
 	return Vector2(newx,newy)
 	
 func addBoard(area):
+	print(area)
 	var start = reconvert(area.x,area.y)
 	var startingArea = [start, Vector2(start.x + 1,start.y),Vector2(start.x + 1,start.y+1),Vector2(start.x,start.y+1),Vector2(start.x - 1,start.y+1),Vector2(start.x - 1,start.y),Vector2(start.x - 1,start.y - 1),Vector2(start.x,start.y - 1),Vector2(start.x + 1,start.y - 1)]
 	print(area)
@@ -119,6 +120,7 @@ func addBoard(area):
 	var convertStartingArea = []
 	for i in startingArea:
 		convertStartingArea.append(convertRowAndCol(i.x,i.y))
+		print(convertStartingArea)
 
 	
 	var startingPos = Vector2(cellSize/2,cellSize/2)
@@ -130,8 +132,8 @@ func addBoard(area):
 		randomize()
 		var x = randi() % width
 		var y = randi() % length
-		var realX = x*32 + 16
-		var realY = y*32 + 16
+		var realX = (x*32 + 16) + 16
+		var realY = (y*32 + 16) + 95
 
 		while Vector2(x,y) in startingArea or Vector2(x,y) in dangerPos:
 			x = randi() % width
@@ -152,7 +154,7 @@ func addBoard(area):
 
 			
 	
-
+	#$tiles.position = Vector2(16,95)
 
 	for i in range(size):
 		if Vector2(col,row) in dangerPos:
@@ -185,6 +187,7 @@ func clearUnknown(pos):
 
 	for i in $tiles.get_children():
 		if i.position == pos:
+			print(i.name)
 			if "safe" in i.name:
 				if i.get_node("hidden").visible == true:
 					i.get_node("hidden").hide()
@@ -205,7 +208,7 @@ func clearUnknown(pos):
 					i.get_node("hidden").hide()
 #				if i.get_node("hitOnce").visible == true:
 #					i.get_node("hitOnce").hide()
-				i.showText()
+				#i.showText()
 
 	
 	

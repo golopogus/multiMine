@@ -34,30 +34,45 @@ func addMine():
 func countNeighbors():
 	for i in get_parent().get_children():
 		if "danger" in i.name:
-			if i.position == position + Vector2(-32,0):
+			if i.position == position + Vector2(-16,0):
 				total += 1
-			if i.position == position + Vector2(-32,32):
+			if i.position == position + Vector2(-16,16):
 				total += 1
-			if i.position == position + Vector2(0,32):
+			if i.position == position + Vector2(0,16):
 				total += 1
-			if i.position == position + Vector2(32,32):
+			if i.position == position + Vector2(16,16):
 				total += 1
-			if i.position == position + Vector2(32,0):
+			if i.position == position + Vector2(16,0):
 				total += 1
-			if i.position == position + Vector2(32,-32):
+			if i.position == position + Vector2(16,-16):
 				total += 1
-			if i.position == position + Vector2(0,-32):
+			if i.position == position + Vector2(0,-16):
 				total += 1
-			if i.position == position + Vector2(-32,-32):
+			if i.position == position + Vector2(-16,-16):
 				total += 1
 #	
-	
+	if total == 1:
+		$sprites/Sprite.show()
+	elif total == 2:
+		$sprites/Sprite2.show()
+	elif total == 3:
+		$sprites/Sprite3.show()
+	elif total == 4:
+		$sprites/Sprite4.show()
+	elif total == 5:
+		$sprites/Sprite5.show()
+	elif total == 6:
+		$sprites/Sprite6.show()
+	elif total == 7:
+		$sprites/Sprite7.show()
+	elif total == 8:
+		$sprites/Sprite8.show()
 #		$Particles2D.emitting = true
 
 func showText():
-
-	$Label.show()
-	$Label.text = str(total)
+	pass
+	#$Label.show()
+	#$Label.text = str(total)
 
 #func becomeHole():
 #	isHole = true
