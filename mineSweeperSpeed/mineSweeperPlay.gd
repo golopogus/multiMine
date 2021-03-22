@@ -21,7 +21,7 @@ var badAreas = []
 var turnCounter = 0
 var started = false
 var pospos = Vector2()
-
+var inExit = false
 	
 func _unhandled_input(event):
 	
@@ -43,7 +43,8 @@ func _unhandled_input(event):
 					pospos = i.position
 					started = true
 					addBoard(pospos)
-		
+		if inExit == true:
+			get_tree().quit()
 	if Input.is_action_just_pressed("rightClick") and started == true:
 		for i in $tiles.get_children():
 			if i.mouseIn == true:
@@ -217,3 +218,11 @@ func clearUnknown(pos):
 #
 #
 #
+
+
+func _on_exit_mouse_entered():
+	inExit = true
+
+
+func _on_exit_mouse_exited():
+	inExit = false
