@@ -10,15 +10,19 @@ var mouseIn = false
 var addMine = false
 
 func addMine():
-	if addMine == false:
-		addMine = true
-		$hidden/mine.show()
-	else:
-		addMine = false
-		$hidden/mine.hide()
+	if $hidden.visible == true:
+		if addMine == false:
+			addMine = true
+			$hidden/mine.show()
+			get_parent().get_parent().subtractCounter()
+		else:
+			addMine = false
+			$hidden/mine.hide()
+			get_parent().get_parent().addCounter()
 
 
 func unhide():
+
 #	if $hidden.visible == true:
 #		$hidden.hide()
 #		if dir == 'top':
@@ -30,6 +34,8 @@ func unhide():
 #		elif dir == 'left':
 #			$hitOnce/hitLeft.show()
 	if $hidden.visible == true:
+		if addMine == true:
+			get_parent().get_parent().addCounter()
 		#get_parent().get_parent().clearUnknown(position)
 		$hidden.hide()
 		$hidden.visible = false

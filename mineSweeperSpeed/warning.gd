@@ -17,19 +17,25 @@ var mouseIn = false
 var addMine = false
 
 func unhide():
-
+	
 	if $hidden.visible == true:
+		if addMine == true:
+			get_parent().get_parent().addCounter()
 		showText()
 		$hidden.hide()
 		$hidden.visible = false
 		
 func addMine():
-	if addMine == false:
-		addMine = true
-		$hidden/mine.show()
-	else:
-		addMine = false
-		$hidden/mine.hide()
+	if $hidden.visible == true:
+		if addMine == false:
+			addMine = true
+			$hidden/mine.show()
+			get_parent().get_parent().subtractCounter()
+			print('smee2')
+		else:
+			addMine = false
+			$hidden/mine.hide()
+			get_parent().get_parent().addCounter()
 		
 func countNeighbors():
 	for i in get_parent().get_children():
