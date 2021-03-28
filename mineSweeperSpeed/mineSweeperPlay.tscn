@@ -34,6 +34,7 @@ animations = [ {
 extents = Vector2( 12.5993, 12.4998 )
 
 [node name="mineSweeperPlay" type="Node2D"]
+scale = Vector2( 2, 2 )
 script = ExtResource( 1 )
 
 [node name="background" type="Sprite" parent="."]
